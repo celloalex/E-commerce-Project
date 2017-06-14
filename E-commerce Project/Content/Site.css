@@ -22,3 +22,24 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#container{
+    height: auto;
+    text-align: center;
+    max-width: 100%;
+}
+
+#container div{
+    width: 19%;
+    display: inline-block;
+}
+
+#container-footer{
+    height: auto;
+    text-align: center;
+    max-width: 100%;
+    margin-left:auto;
+    margin-right:auto;
+    background-color: black;
+}
+

@@ -210,6 +210,18 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\imageFolder\blogger-128.png" />
+    <Content Include="Content\imageFolder\buildYourBundle.png" />
+    <Content Include="Content\imageFolder\buyYourPiHome.png" />
+    <Content Include="Content\imageFolder\download.png" />
+    <Content Include="Content\imageFolder\facebook-128.png" />
+    <Content Include="Content\imageFolder\family.png" />
+    <Content Include="Content\imageFolder\gettingStarted.png" />
+    <Content Include="Content\imageFolder\homeFooter.png" />
+    <Content Include="Content\imageFolder\partsAndAccessories.png" />
+    <Content Include="Content\imageFolder\reddit-128.png" />
+    <Content Include="Content\imageFolder\twitter-128.png" />
+    <Content Include="Content\imageFolder\youtube-128.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -242,8 +254,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -268,7 +278,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\imageFolder\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

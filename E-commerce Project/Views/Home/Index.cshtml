@@ -2,30 +2,91 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<!-- Carousel -->
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
 
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <!--Build your raspberry pi-->
+            <!-- TODO Link out to products page -->
+            <img src="~/Content/imageFolder/buyYourPiHome.png">
+        </div>
+
+        <div class="item">
+            <!--Build your bundle-->
+            <!-- TODO Link out to products page -->
+            <img src="~/Content/imageFolder/buildYourBundle.png">
+        </div>
+
+        <div class="item">
+            <!--parts and accessories-->
+            <!-- TODO Link out to products page -->
+            <img src="~/Content/imageFolder/partsAndAccessories.png">
+        </div>
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+<!-- Social media -->
+<div>
+    <!-- Social media -->
+    <div class="text-center">
+        <h1>Social Media</h1>
+    </div>
+    <!-- social media buttons linking outside of site -->
+    <div id="container">
+        <div>
+            <a href="https://www.facebook.com/raspberrypi"><img src="~/Content/imageFolder/facebook-128.png" /></a>
+        </div>
+        <div>
+            <a href="https://twitter.com/Raspberry_Pi"><img src="~/Content/imageFolder/twitter-128.png" /></a>
+        </div>
+        <div>
+            <a href="https://www.youtube.com/watch?v=iH_tTWibpd0"><img src="~/Content/imageFolder/youtube-128.png" /></a>
+        </div>
+        <div>
+            <a href="https://www.reddit.com/r/raspberry_pi/"><img src="~/Content/imageFolder/reddit-128.png" /></a>
+        </div>
+        <div>
+            <a href="https://www.raspberrypi.org/blog/"><img src="~/Content/imageFolder/blogger-128.png" /></a>
+        </div>
+    </div>
+</div>
+<hr />
+<!-- Information links -->
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <div class="col-md-4" id="container">
+        <h2>The Raspberry Pi Family</h2>
+        <!-- TODO Link out to products page -->
+        <img src="~/Content/imageFolder/family.png" />
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <div class="col-md-4" id="container">
+        <h2>Download Resources</h2>
+        <a href="https://www.raspberrypi.org/downloads/"><img src="~/Content/imageFolder/download.png" /></a>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="col-md-4" id="container">
+        <h2>Getting Started</h2>
+        <a href="https://www.raspberrypi.org/learning/troubleshooting-guide/"><img src="~/Content/imageFolder/gettingStarted.png" /></a>
     </div>
+</div>
+<hr />
+<!-- Home Page Footer -->
+<!-- TODO Link out to the products page -->
+<div id="container-footer">
+    <img src="~/Content/imageFolder/homeFooter.png" />
 </div>
