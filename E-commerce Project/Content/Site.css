@@ -43,3 +43,23 @@ textarea {
     background-color: black;
 }
 
+#nav-div-left{
+    height: 50px;
+    max-width: 100%;
+    background-color: blue;
+}
+
+#nav-div-left > ul > li{
+    float: left;
+    list-style-type: none;
+    padding: 15px;
+}
+
+#nav-div-right{
+    height: 50px;
+    text-align: right;
+    max-width: 49%;
+    margin-left:auto;
+    margin-right:auto;
+    /*make a background color better*/
+}
