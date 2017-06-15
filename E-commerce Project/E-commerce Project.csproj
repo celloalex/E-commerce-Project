@@ -128,6 +128,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -216,8 +218,44 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Address.cs">
+      <DependentUpon>ECommerceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>ECommerceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ECommerceModels.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ECommerceModels.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ECommerceModels.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ECommerceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ECommerceModels.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ECommerceModels.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Payment.cs">
+      <DependentUpon>ECommerceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>ECommerceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductType.cs">
+      <DependentUpon>ECommerceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Purchase.cs">
+      <DependentUpon>ECommerceModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Purchase_Product.cs">
+      <DependentUpon>ECommerceModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -243,6 +281,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\ECommerceModels.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ECommerceModels.edmx</DependentUpon>
+      <LastGenOutput>ECommerceModels.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ECommerceModels.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ECommerceModels.edmx</DependentUpon>
+      <LastGenOutput>ECommerceModels.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -256,6 +304,13 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <EntityDeploy Include="Models\ECommerceModels.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ECommerceModels.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ECommerceModels.edmx.diagram">
+      <DependentUpon>ECommerceModels.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -315,6 +370,9 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

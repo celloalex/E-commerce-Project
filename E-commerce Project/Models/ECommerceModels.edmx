@@ -1,0 +1,480 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ECommerceDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StreetLine1" Type="nvarchar" MaxLength="100" />
+          <Property Name="StreetLine2" Type="nvarchar" MaxLength="100" />
+          <Property Name="City" Type="nvarchar" MaxLength="100" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" />
+          <Property Name="Zip" Type="nvarchar" MaxLength="12" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="CustomerAddress">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="AddressID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+          <Property Name="AddressID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreditCard" Type="int" />
+          <Property Name="CreditCardName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Price" Type="money" />
+          <Property Name="Review" Type="nvarchar" MaxLength="100" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="ProductTypeName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Purchase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Purchase_Product">
+          <Key>
+            <PropertyRef Name="PurchaseID" />
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="PurchaseID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="BundleID" Type="uniqueidentifier" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <Association Name="FK_CustomerAddress_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="1" />
+          <End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CustomerAddress">
+              <PropertyRef Name="AddressID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CustomerAddress_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="CustomerAddress" Type="Self.CustomerAddress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CustomerAddress">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Payment_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_ProductType">
+          <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProductTypeName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseProduct_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Purchase_Product" Type="Self.Purchase_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Purchase_Product">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseProduct_Purchase">
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="1" />
+          <End Role="Purchase_Product" Type="Self.Purchase_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purchase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Purchase_Product">
+              <PropertyRef Name="PurchaseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ECommerceDBModelStoreContainer">
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerAddress" EntityType="Self.CustomerAddress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Purchase" EntityType="Self.Purchase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Purchase_Product" EntityType="Self.Purchase_Product" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CustomerAddress_Address" Association="Self.FK_CustomerAddress_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="CustomerAddress" EntitySet="CustomerAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CustomerAddress_Customer" Association="Self.FK_CustomerAddress_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="CustomerAddress" EntitySet="CustomerAddress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Payment_Customer" Association="Self.FK_Payment_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Payment" EntitySet="Payment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_ProductType" Association="Self.FK_Product_ProductType">
+            <End Role="ProductType" EntitySet="ProductType" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_Customer" Association="Self.FK_Purchase_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseProduct_Product" Association="Self.FK_PurchaseProduct_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Purchase_Product" EntitySet="Purchase_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseProduct_Purchase" Association="Self.FK_PurchaseProduct_Purchase">
+            <End Role="Purchase" EntitySet="Purchase" />
+            <End Role="Purchase_Product" EntitySet="Purchase_Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ECommerceDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ECommerceDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Addresses" EntityType="ECommerceDBModel.Address" />
+          <EntitySet Name="Customers" EntityType="ECommerceDBModel.Customer" />
+          <EntitySet Name="Payments" EntityType="ECommerceDBModel.Payment" />
+          <EntitySet Name="Products" EntityType="ECommerceDBModel.Product" />
+          <EntitySet Name="ProductTypes" EntityType="ECommerceDBModel.ProductType" />
+          <EntitySet Name="Purchases" EntityType="ECommerceDBModel.Purchase" />
+          <EntitySet Name="Purchase_Product" EntityType="ECommerceDBModel.Purchase_Product" />
+          <AssociationSet Name="FK_Payment_Customer" Association="ECommerceDBModel.FK_Payment_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Payment" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_Customer" Association="ECommerceDBModel.FK_Purchase_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Purchase" EntitySet="Purchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_ProductType" Association="ECommerceDBModel.FK_Product_ProductType">
+            <End Role="ProductType" EntitySet="ProductTypes" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseProduct_Product" Association="ECommerceDBModel.FK_PurchaseProduct_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Purchase_Product" EntitySet="Purchase_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PurchaseProduct_Purchase" Association="ECommerceDBModel.FK_PurchaseProduct_Purchase">
+            <End Role="Purchase" EntitySet="Purchases" />
+            <End Role="Purchase_Product" EntitySet="Purchase_Product" />
+          </AssociationSet>
+          <AssociationSet Name="CustomerAddress" Association="ECommerceDBModel.CustomerAddress">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StreetLine1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="StreetLine2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Zip" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customers" Relationship="ECommerceDBModel.CustomerAddress" FromRole="Address" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Payments" Relationship="ECommerceDBModel.FK_Payment_Customer" FromRole="Customer" ToRole="Payment" />
+          <NavigationProperty Name="Purchases" Relationship="ECommerceDBModel.FK_Purchase_Customer" FromRole="Customer" ToRole="Purchase" />
+          <NavigationProperty Name="Addresses" Relationship="ECommerceDBModel.CustomerAddress" FromRole="Customer" ToRole="Address" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreditCard" Type="Int32" />
+          <Property Name="CreditCardName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="ECommerceDBModel.FK_Payment_Customer" FromRole="Payment" ToRole="Customer" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Review" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="ProductTypeName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProductType" Relationship="ECommerceDBModel.FK_Product_ProductType" FromRole="Product" ToRole="ProductType" />
+          <NavigationProperty Name="Purchase_Product" Relationship="ECommerceDBModel.FK_PurchaseProduct_Product" FromRole="Product" ToRole="Purchase_Product" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="ECommerceDBModel.FK_Product_ProductType" FromRole="ProductType" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Purchase">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="ECommerceDBModel.FK_Purchase_Customer" FromRole="Purchase" ToRole="Customer" />
+          <NavigationProperty Name="Purchase_Product" Relationship="ECommerceDBModel.FK_PurchaseProduct_Purchase" FromRole="Purchase" ToRole="Purchase_Product" />
+        </EntityType>
+        <EntityType Name="Purchase_Product">
+          <Key>
+            <PropertyRef Name="PurchaseID" />
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="PurchaseID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="BundleID" Type="Guid" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Product" Relationship="ECommerceDBModel.FK_PurchaseProduct_Product" FromRole="Purchase_Product" ToRole="Product" />
+          <NavigationProperty Name="Purchase" Relationship="ECommerceDBModel.FK_PurchaseProduct_Purchase" FromRole="Purchase_Product" ToRole="Purchase" />
+        </EntityType>
+        <Association Name="FK_Payment_Customer">
+          <End Type="ECommerceDBModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="ECommerceDBModel.Payment" Role="Payment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Payment">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_Customer">
+          <End Type="ECommerceDBModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="ECommerceDBModel.Purchase" Role="Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_ProductType">
+          <End Type="ECommerceDBModel.ProductType" Role="ProductType" Multiplicity="1" />
+          <End Type="ECommerceDBModel.Product" Role="Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="Name" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProductTypeName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseProduct_Product">
+          <End Type="ECommerceDBModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="ECommerceDBModel.Purchase_Product" Role="Purchase_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Purchase_Product">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PurchaseProduct_Purchase">
+          <End Type="ECommerceDBModel.Purchase" Role="Purchase" Multiplicity="1" />
+          <End Type="ECommerceDBModel.Purchase_Product" Role="Purchase_Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Purchase">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Purchase_Product">
+              <PropertyRef Name="PurchaseID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CustomerAddress">
+          <End Type="ECommerceDBModel.Address" Role="Address" Multiplicity="*" />
+          <End Type="ECommerceDBModel.Customer" Role="Customer" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ECommerceDBModelStoreContainer" CdmEntityContainer="ECommerceDBEntities">
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="ECommerceDBModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StreetLine2" ColumnName="StreetLine2" />
+                <ScalarProperty Name="StreetLine1" ColumnName="StreetLine1" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="ECommerceDBModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="ECommerceDBModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CreditCardName" ColumnName="CreditCardName" />
+                <ScalarProperty Name="CreditCard" ColumnName="CreditCard" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="ECommerceDBModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ProductTypeName" ColumnName="ProductTypeName" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Review" ColumnName="Review" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductTypes">
+            <EntityTypeMapping TypeName="ECommerceDBModel.ProductType">
+              <MappingFragment StoreEntitySet="ProductType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchases">
+            <EntityTypeMapping TypeName="ECommerceDBModel.Purchase">
+              <MappingFragment StoreEntitySet="Purchase">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Purchase_Product">
+            <EntityTypeMapping TypeName="ECommerceDBModel.Purchase_Product">
+              <MappingFragment StoreEntitySet="Purchase_Product">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="BundleID" ColumnName="BundleID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="PurchaseID" ColumnName="PurchaseID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="CustomerAddress" TypeName="ECommerceDBModel.CustomerAddress" StoreEntitySet="CustomerAddress">
+            <EndProperty Name="Customer">
+              <ScalarProperty Name="Id" ColumnName="CustomerID" />
+            </EndProperty>
+            <EndProperty Name="Address">
+              <ScalarProperty Name="ID" ColumnName="AddressID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

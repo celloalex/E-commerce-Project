@@ -12,12 +12,10 @@
     <!--Custom navbar-->
     <div class="container">
         <div class="nav-padding">
-            <!--TODO GET THIS WORKING LINKS BACK TO HOMEPAGE-->
-            <!--TODO NOT FLOATING ALL THE WAY LEFT!-->
             <div id="nav-div-left">
                 <ul>
                     <!--Brand Button linking back to homepage-->
-                    <li><a href='@Html.ActionLink("Index", "Home", new { area = "" }, new { @class = "navbar-brand" })'><img src="~/Content/imageFolder/HomeICON.png" /></a></li>
+                    <li ><a href='/'><img src="~/Content/imageFolder/HomeICON.png" /></a></li>
                     <!--Catagories dropdown button-->
                     <li>
                         <div class="dropdown">
@@ -45,8 +43,7 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                                <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                                @Html.Partial("_LoginPartial")
                             </ul>
                         </div>
                     </li>
