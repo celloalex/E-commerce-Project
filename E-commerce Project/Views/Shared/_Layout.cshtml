@@ -9,50 +9,57 @@
 
 </head>
 <body>
+    <!--Custom navbar-->
     <div class="container">
-        <div class="navbar navbar-inverse navbar-static-top">
-            <div >
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Raspberry Pi", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        @* TODO tabs to different pages *@
-                    </ul>
-                    @* This may need to be removed later to put in my own login information *@
-                    @Html.Partial("_LoginPartial")
-                </div>
+        <div class="nav-padding">
+            <!--TODO GET THIS WORKING LINKS BACK TO HOMEPAGE-->
+            <!--TODO NOT FLOATING ALL THE WAY LEFT!-->
+            <div id="nav-div-left">
+                <ul>
+                    <!--Brand Button linking back to homepage-->
+                    <li><a href='@Html.ActionLink("Index", "Home", new { area = "" }, new { @class = "navbar-brand" })'><img src="~/Content/imageFolder/HomeICON.png" /></a></li>
+                    <!--Catagories dropdown button-->
+                    <li>
+                        <div class="dropdown">
+                            <button class="my-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                                Catagories
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Build a Bundle</a></li>
+                                <li><a href="#">Bundles</a></li>
+                                <li><a href="#">Raspberry Pi's</a></li>
+                                <li><a href="#">Chargers</a></li>
+                                <li><a href="#">SD Cards</a></li>
+                                <li><a href="#">Wireless</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <!--Accounts dropdown button-->
+                        <div class="dropdown">
+                            <button class="my-btn dropdown-toggle" type="button" data-toggle="dropdown">
+                                Accounts
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+                                <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>       
             </div>
-        </div>
-        <!--THIS IS THE NEW NAVBAR I AM TRYING TO REPLACE BORING BOOTSTRAP ONE-->
-        <div id="nav-div-left">
-            <ul>
-                <li>Item 1</li>
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                        Dropdown Example
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Build a Bundle</a></li>
-                        <li><a href="#">Bundles</a></li>
-                        <li><a href="#">Raspberry Pis</a></li>
-                        <li><a href="#">Chargers</a></li>
-                        <li><a href="#">SD Cards</a></li>
-                        <li><a href="#">Wireless</a></li>
-                    </ul>
-                </div>
-            </ul>
             <div class="clearfix"></div>
         </div>
+
+        <!--Render rest of body outside of navbar-->
         <div class="body-content">
             @RenderBody()
             <hr />
+            <!--Keeps track of year displays website name-->
             <footer>
                 <p class="text-center">&copy; @DateTime.Now.Year - Raspberry Pi</p>
             </footer>

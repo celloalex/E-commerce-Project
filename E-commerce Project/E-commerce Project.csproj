@@ -234,6 +234,7 @@
     <Content Include="Content\imageFolder\family.png" />
     <Content Include="Content\imageFolder\gettingStarted.png" />
     <Content Include="Content\imageFolder\homeFooter.png" />
+    <Content Include="Content\imageFolder\HomeICON.png" />
     <Content Include="Content\imageFolder\partsAndAccessories.png" />
     <Content Include="Content\imageFolder\reddit-128.png" />
     <Content Include="Content\imageFolder\twitter-128.png" />

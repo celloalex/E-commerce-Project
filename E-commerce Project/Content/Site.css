@@ -1,12 +1,11 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    padding-bottom: 50px;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    width:102%;
+    padding-right: 7px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -21,6 +20,11 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+/* provides space under the navbar */
+.nav-padding{
+    padding-bottom: 15px;
 }
 
 #container{
@@ -42,24 +46,35 @@ textarea {
     margin-right:auto;
     background-color: black;
 }
-
+/*This is custom css for navbar*/
 #nav-div-left{
+    display: block;
     height: 50px;
     max-width: 100%;
-    background-color: blue;
-}
+    background-color: black;
 
+}
+/*This is custom css for navbar floats brand/catagories left*/
 #nav-div-left > ul > li{
     float: left;
     list-style-type: none;
-    padding: 15px;
 }
 
-#nav-div-right{
-    height: 50px;
-    text-align: right;
-    max-width: 49%;
-    margin-left:auto;
-    margin-right:auto;
-    /*make a background color better*/
+/*This is custom css for buttons in navbar*/
+.my-btn{
+     background-color: black;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
 }
+/*This is custom css for buttons in navbar*/
+.my-btn:hover{
+    background-color:white;
+    padding: 13px 32px;
+    color:black;
+    border:solid;
+    border-width:2px;
+}
+
