@@ -1,0 +1,19 @@
+﻿@model IEnumerable<E_commerce_Project.Models.Product>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@ViewBag.Category</h2>
+
+@foreach (var product in Model)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">@product.Name</div>
+        <div class="panel-body">
+            <span>@((product.Price ?? 0).ToString("c"))</span>
+            <p>@product.Review</p>
+            @Html.ActionLink("View Product", "Index", "Product", new { id = product.ID }, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+}
+

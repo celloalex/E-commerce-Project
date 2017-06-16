@@ -24,17 +24,18 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Build a Bundle</a></li>
-                                <li><a href="#">Bundles</a></li>
-                                <li><a href="#">Raspberry Pi's</a></li>
-                                <li><a href="#">Chargers</a></li>
-                                <li><a href="#">SD Cards</a></li>
-                                <li><a href="#">Wireless</a></li>
+                                <li><a href="#">Build a Bundle //WORK IN PROGRESS</a></li>
+                                <li><a href="#">Bundles //WORK IN PROGRESS</a></li>
+                                <li>@Html.ActionLink("Raspberry Pi's", "Index", "Category", new { id = "Pi's" }, null)</li>
+                                <li>@Html.ActionLink("Chargers", "Index", "Category", new { id = "Chargers" }, null)</li>
+                                <li>@Html.ActionLink("SD Cards", "Index", "Category", new { id = "SD Cards" }, null)</li>
+                                <li>@Html.ActionLink("Wireless", "Index", "Category", new { id = "Wireless" }, null)</li>
                             </ul>
                         </div>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.Partial("_Cart")</li>
                     <li>
                         <!--Accounts dropdown button-->
                         <div class="dropdown">

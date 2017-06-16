@@ -1,0 +1,88 @@
+﻿@model IEnumerable<E_commerce_Project.Models.Product>
+@{
+    ViewBag.Title = "Index";
+    decimal totalCost = 0m;
+    foreach (var Product in Model)
+    {
+        totalCost += (Product.Price ?? 0) * 1;
+    }
+}
+
+<h2>Cart</h2>
+
+@if (Model.Count() == 0)
+{
+    <div class="alert-warning">
+        <p>Your Car is currently empty</p>
+        @Html.ActionLink("Go Shopping", "Index", "Category", null, new { @class = "btn" })
+    </div>
+}
+else
+{
+    using (Html.BeginForm())
+    {
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    <tr>
+                        <td></td>
+                        <td>@Model.ElementAt(i).Name</td>
+                        <td></td>
+                        <td>@((Model.ElementAt(i).Price ?? 0).ToString("c"))</td>
+                        <td></td>
+                        <td>@(((Model.ElementAt(i).Price ?? 0) * 1).ToString("c"))</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Total</td>
+                    <td>@totalCost.ToString("c")</td>
+                </tr>
+            </tfoot>
+        </table>
+
+        //Got Shopping Button
+        <div>
+            <div class="pull-left">
+                <input type="submit" value="Update Cart" class="btn btn-default" />
+            </div>
+            <div class="pull-left">
+                @Html.ActionLink("Go Shopping", "Index", "Category", null, new { @class = "btn" })
+            </div>
+        </div>
+        //Checkout button
+        <div class="pull-right">
+            @Html.ActionLink("Checkout", "Index", "Checkout", null, new { @class = "btn btn-primary" })
+        </div>
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+
+
+
+
+    }
+}
+

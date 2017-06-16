@@ -1,0 +1,40 @@
+﻿@model E_commerce_Project.Models.Product
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<h2>@Model.Name</h2>
+
+<span class="pull-right">@((Model.Price ?? 0m).ToString("c"))</span>
+
+<p>@Model.Name</p>
+
+@using (Html.BeginForm())
+{
+    @*using hidden from fields make these properties par of the POST
+        payload. ASPnNet MVC will automatically map these ot the
+         ProductModel parameter if I declare these correctly.*@
+
+    @Html.HiddenFor(x => x.ID)
+    @Html.HiddenFor(x => x.Name)
+    @Html.HiddenFor(x => x.Price)
+    @Html.HiddenFor(x => x.Review)
+    @Html.HiddenFor(x => x.Quantity)
+
+    <div class="form-group">
+        <label for="quantity" class="control-label">Quantity</label>
+    </div>
+    <select name="quantity" required class="form-control">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+    </select><br />
+    <input type="submit" value="Add To Cart" class="btn btn-primary" />
+}

@@ -1,0 +1,204 @@
+﻿@model AlexStore.Models.CheckoutModel
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        @*//Displays all missing fields at top of page*@
+        @if (!this.ViewData.ModelState.IsValid)
+        {
+            <h2>Fix the following to continue:</h2>
+            <hr />
+            <div class="alert alert-danger">
+                @Html.ValidationSummary(false)
+            </div>
+        }
+    </div>
+
+    //Checkout Div
+    <div class="row">
+        <div class="form-group col-lg-3">
+            <h2>Checkout</h2>
+            <hr>
+            <!--The div is there to force descriptive text above textbox no matter how short/long it is-->
+            <div>
+                @Html.LabelFor(x => x.ContactEmail, new { @class = "form-lablel" })
+            </div>
+            @Html.TextBoxFor(x => x.ContactEmail)
+            <div>
+                @Html.ValidationMessageFor(x => x.ContactEmail)
+            </div>
+            <br />
+            <div>
+                @Html.LabelFor(x => x.ContactPhone)
+            </div>
+            @Html.TextBoxFor(x => x.ContactPhone)
+            <div>
+                @Html.ValidationMessageFor(x => x.ContactPhone)
+            </div>
+        </div>
+        @*//Billing Address Div*@
+        <div class="col-lg-3">
+            <h2>Billing</h2>
+            <hr>
+            <div>
+                @Html.LabelFor(x => x.BillingAddress.Street1)
+            </div>
+            @Html.TextBoxFor(x => x.BillingAddress.Street1)
+            <br />
+            <div>
+                @Html.ValidationMessageFor(x => x.BillingAddress.Street1)
+            </div>
+            <div>
+                @Html.LabelFor(x => x.BillingAddress.Street2)
+            </div>
+            @Html.TextBoxFor(x => x.BillingAddress.Street2)
+            <br />
+            <div>
+                @Html.LabelFor(x => x.BillingAddress.City)
+            </div>
+            @Html.TextBoxFor(x => x.BillingAddress.City)
+            <br />
+            <div>
+                @Html.ValidationMessageFor(x => x.BillingAddress.City)
+            </div>
+            <div>
+                @Html.LabelFor(x => x.BillingAddress.Country)
+            </div>
+            @Html.TextBoxFor(x => x.BillingAddress.Country)
+            <br />
+            <div>
+                @Html.ValidationMessageFor(x => x.BillingAddress.Country)
+            </div>
+            <div>
+                @Html.LabelFor(x => x.BillingAddress.State)
+            </div>
+            @Html.TextBoxFor(x => x.BillingAddress.State)
+            <br />
+            <div>
+                @Html.ValidationMessageFor(x => x.BillingAddress.State)
+            </div>
+            <div>
+                @Html.LabelFor(x => x.BillingAddress.PostalCode)
+            </div>
+            @Html.TextBoxFor(x => x.BillingAddress.PostalCode)
+            <br />
+            <div>
+                @Html.ValidationMessageFor(x => x.BillingAddress.PostalCode)
+            </div>
+        </div>
+        @*//Shipping Address Div*@
+        <div class="col-lg-3">
+            <h2>Shipping</h2>
+            <hr>
+            <div>
+                @Html.LabelFor(x => x.ShippingAddress.Street1)
+            </div>
+            @Html.TextBoxFor(x => x.ShippingAddress.Street1)
+            <br />
+            <div>
+                @Html.ValidationMessageFor(x => x.ShippingAddress.Street1)
+            </div>
+            <div>
+                @Html.LabelFor(x => x.ShippingAddress.Street2)
+            </div>
+            @Html.TextBoxFor(x => x.ShippingAddress.Street2)
+            <br />
+            <div>
+                @Html.LabelFor(x => x.ShippingAddress.City)
+            </div>
+            @Html.TextBoxFor(x => x.ShippingAddress.City)
+            <br />
+            <div>
+                @Html.ValidationMessageFor(x => x.ShippingAddress.City)
+            </div>
+            <div>
+                @Html.LabelFor(x => x.ShippingAddress.Country)
+            </div>
+            @Html.TextBoxFor(x => x.ShippingAddress.Country)
+            <br />
+            <div>
+                @Html.ValidationMessageFor(x => x.ShippingAddress.Country)
+            </div>
+            <div>
+                @Html.LabelFor(x => x.ShippingAddress.State)
+            </div>
+            @Html.TextBoxFor(x => x.ShippingAddress.State)
+            <br />
+            <div>
+                @Html.ValidationMessageFor(x => x.ShippingAddress.State)
+            </div>
+            <div>
+                @Html.LabelFor(x => x.ShippingAddress.PostalCode)
+            </div>
+            @Html.TextBoxFor(x => x.ShippingAddress.PostalCode)
+            <br />
+            <div>
+                @Html.ValidationMessageFor(x => x.ShippingAddress.PostalCode)
+            </div>
+        </div>
+        @*//Debit/Credit Div*@
+        <div class="col-lg-3">
+            <h2>Debit/Credit</h2>
+            <hr>
+            <div>
+                @Html.LabelFor(x => x.CreditCardName)
+            </div>
+            @Html.TextBoxFor(x => x.CreditCardName)
+            <br />
+            <div>
+                @Html.ValidationMessageFor(x => x.CreditCardName)
+            </div>
+            <div>
+                @Html.LabelFor(x => x.CreditCardNumber)
+            </div>
+            @Html.TextBoxFor(x => x.CreditCardNumber)
+            <br />
+            <div>
+                @Html.ValidationMessageFor(x => x.CreditCardNumber)
+            </div>
+            <div>
+                @Html.LabelFor(x => x.CreditCardExpirationMonth)
+            </div>
+            @Html.TextBoxFor(x => x.CreditCardExpirationMonth)
+            <br />
+            <div>
+                @Html.ValidationMessageFor(x => x.CreditCardExpirationMonth)
+            </div>
+            <div>
+                @Html.LabelFor(x => x.CreditCardExpirationYear)
+            </div>
+            @Html.TextBoxFor(x => x.CreditCardExpirationYear)
+            <br />
+            <div>
+                @Html.ValidationMessageFor(x => x.CreditCardExpirationYear)
+            </div>
+            <div>
+                @Html.LabelFor(x => x.CreditCardVerificationValue)
+            </div>
+            @Html.TextBoxFor(x => x.CreditCardVerificationValue)
+            <br />
+            <div>
+                @Html.ValidationMessageFor(x => x.CreditCardVerificationValue)
+            </div>
+        </div>
+    </div>
+    <div class="row pull-right">
+        <div>
+            <input type="submit" value="Complete Checkout" class="btn btn-primary" />
+        </div>
+    </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+}
+
