@@ -15,7 +15,6 @@
         <AssociationConnector Association="ECommerceDBModel.FK_Payment_Customer" />
         <AssociationConnector Association="ECommerceDBModel.FK_Purchase_Customer" />
         <AssociationConnector Association="ECommerceDBModel.FK_Product_ProductType" />
-        <AssociationConnector Association="ECommerceDBModel.FK_Purchase_Product" />
         <AssociationConnector Association="ECommerceDBModel.FK_PurchaseProduct_Product" />
         <AssociationConnector Association="ECommerceDBModel.FK_PurchaseProduct_Purchase" />
         <AssociationConnector Association="ECommerceDBModel.CustomerAddress" />
