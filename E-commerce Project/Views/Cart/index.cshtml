@@ -38,9 +38,9 @@ else
                     <tr>
                         <td></td>
                         <td>@Model.ElementAt(i).Name</td>
-                        <td></td>
+                        <td>@Model.ElementAt(i).Review</td>
                         <td>@((Model.ElementAt(i).Price ?? 0).ToString("c"))</td>
-                        <td></td>
+                        <td>@Model.ElementAt(i).Quantity</td>
                         <td>@(((Model.ElementAt(i).Price ?? 0) * 1).ToString("c"))</td>
                     </tr>
                 }
