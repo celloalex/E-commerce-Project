@@ -73,8 +73,9 @@ namespace E_commerce_Project.Controllers
                     {
                         email = model.ContactEmail
                     },
-                    date = DateTime.UtcNow,
                     ProductID = product.ID,
+                    
+                    
 
                 };
 
@@ -101,20 +102,32 @@ namespace E_commerce_Project.Controllers
             builder.Append("<tbody>");
             builder.Append("<tr><td></td>");
             builder.Append("<td>");
-            builder.Append(p.Product.Name);
+            builder.Append(p.Purchase_Product);
             builder.Append("</td>");
 
             builder.Append("<td>");
-            builder.Append(p.Product.Review);
+            foreach(var product in p.Purchase_Product)
+            {
+                builder.Append(product.Product.Name);
+            }
+            //builder.Append(product.Product.Name);
             builder.Append("</td>");
             builder.Append("<td>");
-            builder.Append((p.Product.Price ?? 0).ToString("c"));
+            foreach(var product in p.Purchase_Product)
+            {
+                builder.Append((product.Product.Price ?? 0).ToString("c"));
+            }
+            //builder.Append((p.Product.Price ?? 0).ToString("c"));
             builder.Append("</td>");
             builder.Append("<td>");
             builder.Append(1);
             builder.Append("</td>");
             builder.Append("<td>");
-            builder.Append((p.Product.Price ?? 0));
+            foreach(var product in p.Purchase_Product)
+            {
+                builder.Append((product.Product.Price ?? 0));
+            }
+            //builder.Append((p.Product.Price ?? 0));
             builder.Append("</td>");
 
             builder.Append("</tr>");

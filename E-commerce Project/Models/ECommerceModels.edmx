@@ -63,6 +63,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="CustomerID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Purchase_Product">
@@ -135,6 +136,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Purchase_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Purchase" Type="Self.Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PurchaseProduct_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="Purchase_Product" Type="Self.Purchase_Product" Multiplicity="*" />
@@ -188,6 +201,10 @@
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Purchase" EntitySet="Purchase" />
           </AssociationSet>
+          <AssociationSet Name="FK_Purchase_Product" Association="Self.FK_Purchase_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Purchase" EntitySet="Purchase" />
+          </AssociationSet>
           <AssociationSet Name="FK_PurchaseProduct_Product" Association="Self.FK_PurchaseProduct_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="Purchase_Product" EntitySet="Purchase_Product" />
@@ -220,6 +237,10 @@
           <AssociationSet Name="FK_Product_ProductType" Association="ECommerceDBModel.FK_Product_ProductType">
             <End Role="ProductType" EntitySet="ProductTypes" />
             <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Purchase_Product" Association="ECommerceDBModel.FK_Purchase_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Purchase" EntitySet="Purchases" />
           </AssociationSet>
           <AssociationSet Name="FK_PurchaseProduct_Product" Association="ECommerceDBModel.FK_PurchaseProduct_Product">
             <End Role="Product" EntitySet="Products" />
@@ -278,6 +299,7 @@
           <Property Name="Quantity" Type="Int32" />
           <Property Name="ProductTypeName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ProductType" Relationship="ECommerceDBModel.FK_Product_ProductType" FromRole="Product" ToRole="ProductType" />
+          <NavigationProperty Name="Purchases" Relationship="ECommerceDBModel.FK_Purchase_Product" FromRole="Product" ToRole="Purchase" />
           <NavigationProperty Name="Purchase_Product" Relationship="ECommerceDBModel.FK_PurchaseProduct_Product" FromRole="Product" ToRole="Purchase_Product" />
         </EntityType>
         <EntityType Name="ProductType">
@@ -292,8 +314,10 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Customer" Relationship="ECommerceDBModel.FK_Purchase_Customer" FromRole="Purchase" ToRole="Customer" />
+          <NavigationProperty Name="Product" Relationship="ECommerceDBModel.FK_Purchase_Product" FromRole="Purchase" ToRole="Product" />
           <NavigationProperty Name="Purchase_Product" Relationship="ECommerceDBModel.FK_PurchaseProduct_Purchase" FromRole="Purchase" ToRole="Purchase_Product" />
         </EntityType>
         <EntityType Name="Purchase_Product">
@@ -341,6 +365,18 @@
             </Principal>
             <Dependent Role="Product">
               <PropertyRef Name="ProductTypeName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Purchase_Product">
+          <End Type="ECommerceDBModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="ECommerceDBModel.Purchase" Role="Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -432,6 +468,7 @@
             <EntityTypeMapping TypeName="ECommerceDBModel.Purchase">
               <MappingFragment StoreEntitySet="Purchase">
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

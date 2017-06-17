@@ -5,16 +5,17 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="4b76361674a7457fb7b886f341f184bb" Name="Diagram1" ZoomLevel="85">
-        <EntityTypeShape EntityType="ECommerceDBModel.Address" Width="1.5" PointX="1.125" PointY="0.5" />
-        <EntityTypeShape EntityType="ECommerceDBModel.Customer" Width="1.5" PointX="2.375" PointY="3.5" />
-        <EntityTypeShape EntityType="ECommerceDBModel.Payment" Width="1.5" PointX="0.875" PointY="6" />
-        <EntityTypeShape EntityType="ECommerceDBModel.Product" Width="1.5" PointX="10.75" PointY="3.625" />
-        <EntityTypeShape EntityType="ECommerceDBModel.ProductType" Width="1.5" PointX="10.75" PointY="0.5" />
-        <EntityTypeShape EntityType="ECommerceDBModel.Purchase" Width="1.5" PointX="5.5" PointY="3.75" />
-        <EntityTypeShape EntityType="ECommerceDBModel.Purchase_Product" Width="1.5" PointX="8.25" PointY="3.625" />
+        <EntityTypeShape EntityType="ECommerceDBModel.Address" Width="1.5" PointX="0.5" PointY="0.875" />
+        <EntityTypeShape EntityType="ECommerceDBModel.Customer" Width="1.5" PointX="2.5" PointY="3.625" />
+        <EntityTypeShape EntityType="ECommerceDBModel.Payment" Width="1.5" PointX="0.625" PointY="5.5" />
+        <EntityTypeShape EntityType="ECommerceDBModel.Product" Width="1.5" PointX="12.5" PointY="4.25" />
+        <EntityTypeShape EntityType="ECommerceDBModel.ProductType" Width="1.5" PointX="13.125" PointY="1.125" />
+        <EntityTypeShape EntityType="ECommerceDBModel.Purchase" Width="1.5" PointX="5.875" PointY="3.625" />
+        <EntityTypeShape EntityType="ECommerceDBModel.Purchase_Product" Width="1.5" PointX="9.5" PointY="2.625" />
         <AssociationConnector Association="ECommerceDBModel.FK_Payment_Customer" />
         <AssociationConnector Association="ECommerceDBModel.FK_Purchase_Customer" />
         <AssociationConnector Association="ECommerceDBModel.FK_Product_ProductType" />
+        <AssociationConnector Association="ECommerceDBModel.FK_Purchase_Product" />
         <AssociationConnector Association="ECommerceDBModel.FK_PurchaseProduct_Product" />
         <AssociationConnector Association="ECommerceDBModel.FK_PurchaseProduct_Purchase" />
         <AssociationConnector Association="ECommerceDBModel.CustomerAddress" />
