@@ -26,6 +26,5 @@ namespace E_commerce_Project.Models
         public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Purchase_Product> Purchase_Product { get; set; }
-        public int ProductID { get; internal set; }
     }
 }
