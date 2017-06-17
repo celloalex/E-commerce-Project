@@ -73,11 +73,19 @@ namespace E_commerce_Project.Controllers
                     {
                         email = model.ContactEmail
                     },
-                    ProductID = product.ID,
+                    Purchase_Product = new Purchase_Product[]
+                    {
+                        new Purchase_Product
+                        {
+                            ProductID = product.ID,
+                            Quantity = quantity
+                        }
+                    }
                     
                     
 
                 };
+                
 
 
                 entities.Purchases.Add(p);
