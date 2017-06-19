@@ -23,7 +23,7 @@ namespace E_commerce_Project.Web
 
         public Task SendAsync(IdentityMessage message)
         {
-            EmailAddress from = new EmailAddress("admin@raspberry.com", "Admin");
+            EmailAddress from = new EmailAddress("admin@raspberry.com", "Raspberry Pi Store");
             EmailAddress to = new EmailAddress(message.Destination);
             SendGridMessage sendGridMessage = MailHelper.CreateSingleEmail(from, to, message.Subject, Regex.Replace(message.Body, @"<(.|\n)*?>", ""), message.Body);
             return _client.SendEmailAsync(sendGridMessage);

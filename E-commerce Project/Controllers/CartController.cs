@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using E_commerce_Project.Models;
-//test comment
 namespace E_commerce_Project.Controllers
 {
     public class CartController : Controller
@@ -23,14 +22,11 @@ namespace E_commerce_Project.Controllers
             if (Request.Cookies.AllKeys.Contains("cart"))
             {
                 HttpCookie cartCookie = Request.Cookies["cart"];
-                //cartcookie comes in whtih "2,1" meaning productId 
                 var cookieValues = cartCookie.Value.Split(',');
                 int productId = int.Parse(cookieValues[0]);
-                //int quantity = int.Parse(cookieValues[1]);
                 var products = entities.Products.Where(x => x.ID == productId);
                 return View(products);
             }
-
             return View();
         }
 

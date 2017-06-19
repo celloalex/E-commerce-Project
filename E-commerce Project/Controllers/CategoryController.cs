@@ -20,12 +20,13 @@ namespace E_commerce_Project.Controllers
         // GET: Category
         public ActionResult Index(string id)
         {
-
+            //If the category adress is null or empty show all products
             if (string.IsNullOrEmpty(id))
             {
                 ViewBag.Category = "All Products";
                 return View(entities.Products);
             }
+            //else only the products in that specific category
             else
             {
                 ViewBag.Category = id;

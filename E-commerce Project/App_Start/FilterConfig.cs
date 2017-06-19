@@ -10,7 +10,6 @@ namespace E_commerce_Project
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-            //filters.Add(new OutputCacheAttribute());    //Bad idea!
             filters.Add(new CartCalculatorAttribute()); //Better idea - cart calculator will now be run on every page!
         }
     }
