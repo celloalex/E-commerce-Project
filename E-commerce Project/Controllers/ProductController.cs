@@ -33,6 +33,9 @@ namespace E_commerce_Project.Controllers
         public ActionResult Index(Product model, int? quantity)
         {
             //todo: add this product ot the current user's cart
+            Purchase p = new Purchase();
+            p.Purchase_Product.Add(new Purchase_Product { ProductID = model.ID, Quantity = quantity });
+            p
             HttpCookie cookie = new HttpCookie("cart", model.ID.ToString() + ", " + quantity.Value.ToString());
             Response.SetCookie(cookie);
 

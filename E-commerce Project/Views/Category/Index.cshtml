@@ -10,9 +10,21 @@
     <div class="panel panel-default">
         <div class="panel-heading">@product.Name</div>
         <div class="panel-body">
-            <span>@((product.Price ?? 0).ToString("c"))</span>
-            <p>@product.Review</p>
-            @Html.ActionLink("View Product", "Index", "Product", new { id = product.ID }, new { @class = "btn btn-primary" })
+            <div class="col-lg-9">
+                <span><strong>@((product.Price ?? 0).ToString("c"))</strong></span>
+                <hr />
+                <strong>Review</strong>
+                <p>@product.Review</p>
+            </div>
+            <div class="col-lg-3 padding-category">
+                @if (@product.Image.Any())
+                {
+                    <img class="img-responsive pull-right" src="@product.Image" alt="@product.Name" />
+                }
+            </div>
+            <div class="col-lg-12 pull-left">
+                @Html.ActionLink("View Product", "Index", "Product", new { id = product.ID }, new { @class = "btn btn-primary" })
+            </div>
         </div>
     </div>
 }

@@ -244,3 +244,4 @@ ModelManifest.xml
 # FAKE - F# Make
 .fake/
 /E-commerce Project/appSettings.config
+*.jfm

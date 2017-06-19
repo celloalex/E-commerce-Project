@@ -93,19 +93,19 @@ namespace E_commerce_Project.Controllers
                     Body = CreateReceiptEmail(p)
                 });
 
-                ////Send SMS Messages out to people when they place their orders
-                //TwilioSmsService sms = new TwilioSmsService(
-                //    ConfigurationManager.AppSettings["Twilio.AccountSid"],
-                //    ConfigurationManager.AppSettings["Twilio.AuthToken"],
-                //    ConfigurationManager.AppSettings["Twilio.FromNumber"]);
-                //await sms.SendAsync(new Microsoft.AspNet.Identity.IdentityMessage
-                //{
-                //    Subject = "",
-                //    Destination = model.ContactPhone,
-                //    Body = "Your order has been placed " + p.Customer.Name + "! You will get shipping information shortly.";
-                //});
+                //Send SMS Messages out to people when they place their orders
+                TwilioSmsService sms = new TwilioSmsService(
+                    ConfigurationManager.AppSettings["Twilio.AccountSid"],
+                    ConfigurationManager.AppSettings["Twilio.AuthToken"],
+                    ConfigurationManager.AppSettings["Twilio.FromNumber"]);
+                await sms.SendAsync(new Microsoft.AspNet.Identity.IdentityMessage
+                {
+                    Subject = "",
+                    Destination = model.ContactPhone,
+                    Body = "Your order has been placed " + p.Customer.Name + "! You will get shipping information shortly."//Customer name not sending with text messages
+            });
 
-                entities.Purchases.Add(p);
+            entities.Purchases.Add(p);
                 //entities.SaveChanges();
                 this.Response.SetCookie(new HttpCookie("cart") { Expires = DateTime.UtcNow }); // TEST THIS make sure cart is empty following purchase
                 return RedirectToAction("Index", "Home", new { id = p.ID });

@@ -77,3 +77,23 @@ textarea {
     border:solid;
     border-width:2px;
 }
+
+.padding-category{
+    padding-top: 34px;
+}
+
+hr {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #9a9a9a;
+}
+
+footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    text-align: center;
+}
