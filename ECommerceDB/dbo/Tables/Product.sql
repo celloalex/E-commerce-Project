@@ -2,6 +2,7 @@
     [ID]              INT            IDENTITY (1, 1) NOT NULL,
     [Name]            NVARCHAR (100) NULL,
     [Price]           MONEY          NULL,
+    [Review]          NVARCHAR (1000) NULL,
     [Quantity]        INT            NULL,
     [ProductTypeName] NVARCHAR (100) NOT NULL,
     [Image]           NVARCHAR (100) NULL,
