@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using E_commerce_Project.Models;
+using E_commerce_Project.Web;
+using System.Configuration;
 
 namespace E_commerce_Project.Controllers
 {
@@ -156,12 +158,21 @@ namespace E_commerce_Project.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    //SendGrid Send Emails out to people when they register an account
+                    SendGridEmailService service = new SendGridEmailService(ConfigurationManager.AppSettings["SendGrid.ApiKey"]);
+                    await service.SendAsync(new Microsoft.AspNet.Identity.IdentityMessage
+                    {
+                        Subject = string.Format("Account Creation has been successful!"),
+                        Destination = model.Email,
+                        Body = "Your account has been successfully created at Raspberry Pi Store!"
+                    });
 
                     return RedirectToAction("Index", "Home");
                 }

@@ -56,33 +56,19 @@ namespace E_commerce_Project.Controllers
                 var customerResult = await gateway.Customer.CreateAsync(customer);
 
                 HttpCookie cartCookie = Request.Cookies["cart"];
-                var cookieValues = cartCookie.Value.Split(',');
-                int productId = int.Parse(cookieValues[0]);
-                int quantity = int.Parse(cookieValues[1]);
-                Product product = entities.Products.First(x => x.ID == productId);
+                int purchaseId = int.Parse(cartCookie.Value);
+                Purchase p = entities.Purchases.Single(x => x.ID == purchaseId);
 
                 Braintree.TransactionRequest transaction = new Braintree.TransactionRequest();
-                transaction.Amount = product.Price ?? 0;
+                transaction.Amount = p.Purchase_Product.Sum(x => ((x.Quantity ?? 0) * (x.Product.Price ?? 0)));
                 transaction.CustomerId = customerResult.Target.Id;
                 transaction.PaymentMethodToken = customerResult.Target.CreditCards.First().Token;
                 var transactionResult = await gateway.Transaction.SaleAsync(transaction);
-                
-                //new purchase object 
-                Purchase p = new Purchase
-                {
-                    Customer = new Models.Customer
-                    {
-                        email = model.ContactEmail,
-                    },
-                    Purchase_Product = new Purchase_Product[]
-                    {
-                        new Purchase_Product
-                        {
-                            ProductID = product.ID,
-                            Quantity = quantity
-                        }
-                    }
-                };
+
+                p.Customer.email = model.ContactEmail;
+                p.Customer.Name = model.CreditCardName;
+                p.CompletedDate = DateTime.UtcNow;
+                entities.SaveChanges();
 
                 //SendGrid Send Emails out to people that place orders
                 SendGridEmailService service = new SendGridEmailService(ConfigurationManager.AppSettings["SendGrid.ApiKey"]);
@@ -102,12 +88,12 @@ namespace E_commerce_Project.Controllers
                 {
                     Subject = "",
                     Destination = model.ContactPhone,
-                    Body = "Your order has been placed " + p.Customer.Name + "! You will get shipping information shortly."//Customer name not sending with text messages
+                    Body = "Your order has been placed " + p.Customer.Name + "! You will get shipping information shortly."
             });
 
-            entities.Purchases.Add(p);
+           
                 //entities.SaveChanges();
-                this.Response.SetCookie(new HttpCookie("cart") { Expires = DateTime.UtcNow }); // TEST THIS make sure cart is empty following purchase
+                this.Response.SetCookie(new HttpCookie("cart") { Expires = DateTime.UtcNow });
                 return RedirectToAction("Index", "Home", new { id = p.ID });
             }
             return View();
@@ -118,39 +104,48 @@ namespace E_commerce_Project.Controllers
         private string CreateReceiptEmail(Purchase p)
         {
             StringBuilder builder = new StringBuilder();
+            builder.Append("<p>Thank you for placing your order at Raspberry Pi store " + (p.Customer.Name) + ".</p>");
+            builder.Append("<h2>Order Details:</h2>");
             builder.Append("<table>");
-            builder.Append("<thead><tr><th></th><th>name</th><th>description</th><th>unit price</th><th>quantity</th><th>total price</th></tr></thead>");
+            builder.Append("<thead><tr><th></th><th>Name</th><th>Description</th><th>Quantity</th><th>Unit Price</th><th>Total Price</th></tr></thead>");
             builder.Append("<tbody>");
-            builder.Append("<tr><td></td>");
-            builder.Append("<td>");
-            builder.Append(p.Purchase_Product);
-            builder.Append("</td>");
 
-            builder.Append("<td>");
             foreach (var product in p.Purchase_Product)
             {
-                builder.Append(p.Purchase_Product);// This should be the name of the product that is being purchased this can be fixed when you have a cart that can hold multiples
-            }
-            builder.Append("</td>");
-            builder.Append("<td>");
-            foreach (var product in p.Purchase_Product)
-            {
-                //builder.Append((product.Product.Price ?? 0).ToString("c"));// This should be the name of the product that is being purchased this can be fixed when you have a cart that can hold multiples
-            }
-            builder.Append("</td>");
-            builder.Append("<td>");
-            builder.Append(1);
-            builder.Append("</td>");
-            builder.Append("<td>");
-            foreach (var product in p.Purchase_Product)
-            {
-                //builder.Append((product.Product.Price ?? 0)); // This should be the name of the product that is being purchased this can be fixed when you have a cart that can hold multiples
-            }
-            builder.Append("</td>");
 
-            builder.Append("</tr>");
-            builder.Append("</tbody><tfoot><tr><td colspan=\"5\">total</td><td>");
-            // builder.append(p.purchaseproducts.sum(x => (x.product.price ?? 0) * x.quantity).tostring("c"));
+
+                builder.Append("<tr>");
+
+                builder.Append("<td>");
+                //builder.AppendLine();
+                builder.Append("</td>");
+
+                builder.Append("<td>");
+                builder.Append(product.Product.Name);
+                builder.Append("</td>");
+
+                builder.Append("<td>");
+                builder.Append(product.Product.Review);
+                builder.Append("</td>");
+
+                builder.Append("<td>");
+                builder.Append(product.Product.Quantity);
+                builder.Append("</td>");
+
+                builder.Append("<td>");
+                builder.Append((product.Product.Price ?? 0).ToString("c"));
+                builder.Append("</td>");
+
+                builder.Append("<td>");
+                builder.Append(((product.Product.Price ?? 0) * (product.Quantity ?? 0)).ToString("c"));
+                builder.Append("</td>");
+
+
+                builder.Append("</tr>");
+            }
+            
+            builder.Append("</tbody><tfoot><tr><td colspan=\"5\">Total</td><td>");
+            builder.Append(p.Purchase_Product.Sum(x => (x.Product.Price ?? 0) * x.Quantity ?? 0).ToString("c"));
             builder.Append("</td></tr></tfoot></table>");
             return builder.ToString();
         }

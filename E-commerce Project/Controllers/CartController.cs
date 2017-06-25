@@ -21,32 +21,30 @@ namespace E_commerce_Project.Controllers
         {
             if (Request.Cookies.AllKeys.Contains("cart"))
             {
+
                 HttpCookie cartCookie = Request.Cookies["cart"];
-                var cookieValues = cartCookie.Value.Split(',');
-                int productId = int.Parse(cookieValues[0]);
-                var products = entities.Products.Where(x => x.ID == productId);
-                return View(products);
+                int purchaseId = int.Parse(cartCookie.Value);
+                var purchase = entities.Purchases.Single(x => x.ID == purchaseId);
+                return View(purchase);
             }
             return View();
         }
 
         //post: Cart
         [HttpPost]
-        public ActionResult Index(Product[] model, int? quantity)
+        public ActionResult Index(Purchase model)
         {
-            HttpCookie cartCookie = Request.Cookies["cart"];
-            var cookieValues = cartCookie.Value.Split(',');
-            int productId = int.Parse(cookieValues[0]);
-            cartCookie.Value = productId + "," + quantity.Value;
-
-            //if the user changes the number in the cart to zero this will expire the cookie so it no longer loads
-            if (quantity == null || quantity.Value < 1)
+            var fromDb = entities.Purchases.Single(x => x.ID == model.ID);
+            foreach (var updatedProduct in model.Purchase_Product)
             {
-                cartCookie.Expires = DateTime.UtcNow;
-            }
+                var productInDb = fromDb.Purchase_Product.FirstOrDefault(x => x.ProductID == updatedProduct.ProductID);
+                productInDb.Quantity = updatedProduct.Quantity ?? 0; 
 
-            Response.SetCookie(cartCookie);
+            }
+            entities.Purchase_Product.RemoveRange(fromDb.Purchase_Product.Where(x => x.Quantity == 0));
+            entities.SaveChanges();
             return RedirectToAction("Index");
         }
     }
 }
+
