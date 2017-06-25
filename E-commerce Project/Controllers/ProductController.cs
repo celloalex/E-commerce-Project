@@ -32,8 +32,6 @@ namespace E_commerce_Project.Controllers
         [HttpPost]
         public ActionResult Index(Product model, int? quantity)
         {
-            //todo: add this product ot the current user's cart
-
             Purchase p = null;
             if (Request.Cookies.AllKeys.Contains("cart"))
             {

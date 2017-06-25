@@ -32,10 +32,10 @@ namespace E_commerce_Project.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Index(CheckoutModel model, string paymentMethodNonce)
         {
-            //Check if the model-state is valid -- this will catch anytime someone hacks your client-side validation
+            //Check if the model-state is valid -- this will catch anytime someone hacks your client-side validation (If Valid then Transaction may begin)
             if (ModelState.IsValid)
             {
-                //This begins transaction 
+                //creates new transaction and gets API keys from ConfigurationManager.AppSettings
                 var gateway = new Braintree.BraintreeGateway
                 {
                     Environment = Braintree.Environment.SANDBOX,
@@ -59,6 +59,7 @@ namespace E_commerce_Project.Controllers
                 int purchaseId = int.Parse(cartCookie.Value);
                 Purchase p = entities.Purchases.Single(x => x.ID == purchaseId);
 
+                //Send information too braintree
                 Braintree.TransactionRequest transaction = new Braintree.TransactionRequest();
                 transaction.Amount = p.Purchase_Product.Sum(x => ((x.Quantity ?? 0) * (x.Product.Price ?? 0)));
                 transaction.CustomerId = customerResult.Target.Id;
@@ -90,9 +91,7 @@ namespace E_commerce_Project.Controllers
                     Destination = model.ContactPhone,
                     Body = "Your order has been placed " + p.Customer.Name + "! You will get shipping information shortly."
             });
-
-           
-                //entities.SaveChanges();
+                //Expires the cookie (clean out cart) and send customer back to homepage
                 this.Response.SetCookie(new HttpCookie("cart") { Expires = DateTime.UtcNow });
                 return RedirectToAction("Index", "Home", new { id = p.ID });
             }
@@ -101,6 +100,7 @@ namespace E_commerce_Project.Controllers
         //This is the body and structure of the email that the customer will receive
         private string CreateReceiptEmail(Purchase p)
         {
+            //Intial details about order for customer
             StringBuilder builder = new StringBuilder();
             builder.Append("<p>Thank you for placing your order at Raspberry Pi store " + (p.Customer.Name) + ".</p>");
             builder.Append("<h2>Order Details:</h2>");
@@ -108,6 +108,7 @@ namespace E_commerce_Project.Controllers
             builder.Append("<thead><tr><th></th><th>Name</th><th>Description</th><th>Quantity</th><th>Unit Price</th><th>Total Price</th></tr></thead>");
             builder.Append("<tbody>");
 
+            //Table will build a row and put in product information for every product
             foreach (var product in p.Purchase_Product)
             {
                 builder.Append("<tr>");
@@ -124,7 +125,7 @@ namespace E_commerce_Project.Controllers
                 builder.Append("</td>");
 
                 builder.Append("<td>");
-                builder.Append(product.Product.Quantity);
+                builder.Append(product.Quantity);
                 builder.Append("</td>");
 
                 builder.Append("<td>");
@@ -135,13 +136,12 @@ namespace E_commerce_Project.Controllers
                 builder.Append(((product.Product.Price ?? 0) * (product.Quantity ?? 0)).ToString("c"));
                 builder.Append("</td>");
 
-
                 builder.Append("</tr>");
             }
             
-            builder.Append("</tbody><tfoot><tr><td colspan=\"5\">Total</td><td>");
+            builder.Append("</tbody><tfoot><tr><td></td><td></td><td></td><td></td><td><b>Total</b></td><td><b>");
             builder.Append(p.Purchase_Product.Sum(x => (x.Product.Price ?? 0) * x.Quantity ?? 0).ToString("c"));
-            builder.Append("</td></tr></tfoot></table>");
+            builder.Append("</b></td></tr></tfoot></table>");
             return builder.ToString();
         }
     }

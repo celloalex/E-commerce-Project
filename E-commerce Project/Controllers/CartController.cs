@@ -21,7 +21,6 @@ namespace E_commerce_Project.Controllers
         {
             if (Request.Cookies.AllKeys.Contains("cart"))
             {
-
                 HttpCookie cartCookie = Request.Cookies["cart"];
                 int purchaseId = int.Parse(cartCookie.Value);
                 var purchase = entities.Purchases.Single(x => x.ID == purchaseId);
