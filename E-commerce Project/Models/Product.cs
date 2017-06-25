@@ -17,7 +17,6 @@ namespace E_commerce_Project.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.Purchases = new HashSet<Purchase>();
             this.Purchase_Product = new HashSet<Purchase_Product>();
         }
     
@@ -30,8 +29,6 @@ namespace E_commerce_Project.Models
         public string Image { get; set; }
     
         public virtual ProductType ProductType { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Purchase> Purchases { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Purchase_Product> Purchase_Product { get; set; }
     }
