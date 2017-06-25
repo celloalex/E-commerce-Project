@@ -98,8 +98,6 @@ namespace E_commerce_Project.Controllers
             }
             return View();
         }
-
-        //TODO TODO TODO This still needs work and formating (needs to look presentable)
         //This is the body and structure of the email that the customer will receive
         private string CreateReceiptEmail(Purchase p)
         {
@@ -112,12 +110,9 @@ namespace E_commerce_Project.Controllers
 
             foreach (var product in p.Purchase_Product)
             {
-
-                //test comment
                 builder.Append("<tr>");
 
                 builder.Append("<td>");
-                //builder.AppendLine();
                 builder.Append("</td>");
 
                 builder.Append("<td>");
