@@ -7,15 +7,14 @@
       <Diagram DiagramId="4b76361674a7457fb7b886f341f184bb" Name="Diagram1" ZoomLevel="85">
         <EntityTypeShape EntityType="ECommerceDBModel.Address" Width="1.5" PointX="0.75" PointY="2.375" />
         <EntityTypeShape EntityType="ECommerceDBModel.Customer" Width="1.5" PointX="3" PointY="2.375" />
-        <EntityTypeShape EntityType="ECommerceDBModel.Payment" Width="1.5" PointX="5.25" PointY="5.5" />
-        <EntityTypeShape EntityType="ECommerceDBModel.Product" Width="1.5" PointX="3" PointY="7" />
-        <EntityTypeShape EntityType="ECommerceDBModel.ProductType" Width="1.5" PointX="0.75" PointY="7.875" />
-        <EntityTypeShape EntityType="ECommerceDBModel.Purchase" Width="1.5" PointX="5.25" PointY="2.375" />
-        <EntityTypeShape EntityType="ECommerceDBModel.Purchase_Product" Width="1.5" PointX="7.5" PointY="2.375" />
+        <EntityTypeShape EntityType="ECommerceDBModel.Payment" Width="1.5" PointX="5.25" PointY="1.125" />
+        <EntityTypeShape EntityType="ECommerceDBModel.Product" Width="1.5" PointX="5.25" PointY="7.5" />
+        <EntityTypeShape EntityType="ECommerceDBModel.ProductType" Width="1.5" PointX="3" PointY="8.125" />
+        <EntityTypeShape EntityType="ECommerceDBModel.Purchase" Width="1.5" PointX="5.25" PointY="3.875" />
+        <EntityTypeShape EntityType="ECommerceDBModel.Purchase_Product" Width="1.5" PointX="7.5" PointY="3.75" />
         <AssociationConnector Association="ECommerceDBModel.FK_Payment_Customer" />
         <AssociationConnector Association="ECommerceDBModel.FK_Purchase_Customer" />
         <AssociationConnector Association="ECommerceDBModel.FK_Product_ProductType" />
-        <AssociationConnector Association="ECommerceDBModel.FK_Purchase_Product" />
         <AssociationConnector Association="ECommerceDBModel.FK_PurchaseProduct_Product" />
         <AssociationConnector Association="ECommerceDBModel.FK_PurchaseProduct_Purchase" />
         <AssociationConnector Association="ECommerceDBModel.CustomerAddress" />
