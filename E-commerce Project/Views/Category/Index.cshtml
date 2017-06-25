@@ -3,29 +3,31 @@
     ViewBag.Title = "Index";
 }
 
-<h2>@ViewBag.Category</h2>
+<p style="font-size:60px; text-align:center;">@ViewBag.Category</p>
 
 @foreach (var product in Model)
 {
-    <div class="panel panel-default">
-        <div class="panel-heading">@product.Name</div>
+    <div class="panel panel-default col-lg-6 col-md-12" style="padding: 0px; border-radius: 0px;border-color: white;box-shadow: none;">
+        <div class="my-panel">@product.Name</div>
         <div class="panel-body">
-            <div class="col-lg-9">
-                <span><strong>@((product.Price ?? 0).ToString("c"))</strong></span>
-                <hr />
-                <strong>Review</strong>
-                <p>@product.Review</p>
-            </div>
-            <div class="col-lg-3 padding-category">
+            <div class="col-lg-12">
                 @if (@product.Image.Any())
                 {
-                    <img class="img-responsive pull-right" src="@product.Image" alt="@product.Name" />
+                    <img class="img-responsive" style="margin-left:auto; margin-right:auto;" src="@product.Image" alt="@product.Name" />
                 }
+                <hr />
             </div>
-            <div class="col-lg-12 pull-left">
-                @Html.ActionLink("View Product", "Index", "Product", new { id = product.ID }, new { @class = "btn btn-primary" })
+            <div class="col-lg-12">
+                <p style="text-align:center;">@product.Review</p>
+                <hr />
+                <span><strong>@((product.Price ?? 0).ToString("c"))</strong></span>
+            </div>
+            
+            <div class="pull-right">
+                @Html.ActionLink("View Product", "Index", "Product", new { id = product.ID }, new { @class = "btn my-btn" })
             </div>
         </div>
     </div>
 }
+
 
