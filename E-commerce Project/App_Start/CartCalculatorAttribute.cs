@@ -1,4 +1,5 @@
-﻿using System;
+﻿using E_commerce_Project.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,13 +13,16 @@ namespace E_commerce_Project
         public void OnActionExecuted(ActionExecutedContext filterContext)
         {
             filterContext.Controller.ViewBag.CartItemCount = 0;
-
+            
             if (filterContext.RequestContext.HttpContext.Request.Cookies.AllKeys.Contains("cart"))
             {
-                HttpCookie cartCookie = filterContext.RequestContext.HttpContext.Request.Cookies["cart"];
-                var cookieValues = cartCookie.Value.Split(',');
-                int quantity = int.Parse(cookieValues[1]);
-                filterContext.Controller.ViewBag.CartItemCount = quantity;
+                using (ECommerceDBEntities e = new ECommerceDBEntities())
+                {
+                    HttpCookie cartCookie = filterContext.RequestContext.HttpContext.Request.Cookies["cart"];
+                    var purchaseId = int.Parse(cartCookie.Value);
+                    int quantity = e.Purchases.Single(x => x.ID == purchaseId).Purchase_Product.Sum(x => (x.Quantity ?? 0));
+                    filterContext.Controller.ViewBag.CartItemCount = quantity;
+                }
             }
         }
 
