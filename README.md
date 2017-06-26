@@ -11,6 +11,7 @@ Notes about visiting website:
 - SMS verification does not work unless on approved number list
 - Email verification still works
 - Sadly your orders will not be shipped D:
+- Don't enter your real credit card information if you want to test (I don't want to see it)
 
 Functionality of the Raspberry Pi Store includes:
 - Registering and signing into an account with the Raspberry Pi Store
