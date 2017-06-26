@@ -245,3 +245,5 @@ ModelManifest.xml
 .fake/
 /E-commerce Project/appSettings.config
 *.jfm
+E-commerce Project/Properties/PublishProfiles/raspberrypistore - Web Deploy.pubxml
+*.pubxml
