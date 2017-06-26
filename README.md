@@ -5,7 +5,7 @@ The premise of this project was to quickly build a fully functional E-Commerce s
 for this store comes from playing around with Raspberry Pi computers the past couple years. In addition to this I think the Raspberry Pi is an 
 awesome foundation that helps promote the study of basic computer science for children in schools.
 
-This website is currently hosted on Azure, and can be found at http://raspberrypistore.azurewebsites.net/.
+This website and database is currently hosted on Azure, and can be found at http://raspberrypistore.azurewebsites.net/.
 
 Notes about visiting website: 
 - SMS verification does not work unless on approved number list
